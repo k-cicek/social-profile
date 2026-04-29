@@ -1,0 +1,33 @@
+export interface User {
+  id: string;
+  username: string;
+  displayName: string;
+  bio: string;
+  avatarUrl: string;
+  isVerified: boolean;
+  isFollowing: boolean;
+  createdAt: string;
+}
+
+export interface Post {
+  id: string;
+  userId: string;
+  content: string;
+  imageUrl?: string;
+  likeCount: number;
+  commentCount: number;
+  createdAt: string;
+}
+
+export interface UserStats {
+  followerCount: number;
+  followingCount: number;
+  postCount: number;
+}
+
+export interface PaginatedPostsResponse {
+  posts: Post[];
+  page: number;
+  totalPages: number;
+  hasNextPage: boolean;
+}
