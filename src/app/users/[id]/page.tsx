@@ -1,15 +1,30 @@
-import { PostList } from "@/components/PostList";
+import { notFound } from "next/navigation";
+import { users, stats, posts } from "@/lib/mock/data";
 import { ProfileHeader } from "@/components/ProfileHeader";
-import { ProfileStats } from "@/components/ProfileStats";
+import { PostList } from "@/components/PostList";
 
 
-export default function Page() {
+interface PageProps {
+    params: Promise<{
+        id: string;
+    }>;
+}
+
+export default async function UserProfilePage({ params }: PageProps) {
+    const { id } = await params;
+
+    const user = users.find((item) => item.id === id);
+    const userStats = stats[id];
+    const userPosts = posts[id] ?? [];
+
+    if (!user || !userStats) {
+        notFound();
+    }
 
     return (
-        <main className="max-w-2xl mx-auto p-4 space-y-6 bg-gray-50 min-h-screen">
-            <ProfileHeader />
-            <ProfileStats />
-            <PostList />
+        <main className="mx-auto min-h-screen max-w-3xl space-y-6 px-4 py-8 text-slate-950 sm:py-12">
+            <ProfileHeader user={user} stats={userStats} />
+            <PostList posts={userPosts} />
         </main>
     );
 }
