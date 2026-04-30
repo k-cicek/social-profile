@@ -1,37 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## User Profile Case
 
-## Getting Started
+Bu proje, Next.js App Router kullanılarak geliştirilmiş bir kullanıcı profil uygulamasıdır.
+Amaç, gerçek bir backend’den veri alıyormuş gibi çalışan bir yapı kurmak ve temel kullanıcı etkileşimlerini simüle etmektir.
 
-First, run the development server:
+---
+
+### Projeyi Çalıştırma
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Tarayıcıda aç:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```txt
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+### Mimari Yaklaşım
 
-To learn more about Next.js, take a look at the following resources:
+Projede veri akışı şu şekilde kurgulandı:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```txt
+UI → API Routes → lib/api → Mock Data
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* **UI (page & components)** → Veriyi `fetch` ile alır ve render eder
+* **API Routes (`app/api`)** → Backend endpoint gibi davranır
+* **lib/api** → Veriyi hazırlayan fonksiyonları içerir
+* **Mock data** → Basit bir veri kaynağı olarak kullanılır
 
-## Deploy on Vercel
+Bu yapı sayesinde uygulama gerçek bir backend ile çalışıyormuş gibi davranır.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# social-profile
+### Neden Bu Yapıyı Seçtim?
+
+Component’lerden direkt mock data kullanmak yerine API üzerinden veri çekmeyi tercih ettim.
+
+Bunun nedeni:
+
+* Gerçek projelere daha yakın bir yapı kurmak
+* Veri akışını daha net ayırmak
+* İleride gerçek backend’e geçişi kolaylaştırmak
+
+---
+
+### API Endpointleri
+
+* `GET /api/users/:id`
+* `GET /api/users/:id/stats`
+* `GET /api/users/:id/posts?page=1&limit=10`
+* `POST /api/users/:id/follow`
+
+---
+
+### Öne Çıkan Özellikler
+
+* **Optimistic UI** → Follow işlemi anında UI’da güncellenir
+* **Pagination** → Postlar sayfalı şekilde yüklenir
+* **State handling** → Loading, error ve empty durumları ele alınır
+* **Image optimization** → `next/image` kullanıldı
+
+---
+
+### Trade-offs
+
+Bu projede bazı bilinçli basitleştirmeler yapıldı:
+
+* Gerçek database yerine mock data kullanıldı
+* Authentication ve authorization eklenmedi
+* Pagination server-side basit tutuldu (limit düşük tutuldu)
+
+Buna karşılık:
+
+* Kod yapısı gerçek backend’e uyumlu olacak şekilde kuruldu
+* API katmanı korunarak yapı ölçeklenebilir bırakıldı
+
+---
+
+### Kullanılan Teknolojiler
+
+* Next.js 15 (App Router)
+* TypeScript
+* Tailwind CSS
+
+
