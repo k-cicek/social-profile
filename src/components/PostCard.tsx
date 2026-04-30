@@ -38,7 +38,7 @@ export function PostCard({ post, author }: PostCardProps) {
                         </span>
                     </div>
 
-                    <p className="text-[15px] leading-relaxed text-primary">
+                    <p className="text-[13px] sm:text-[15px] leading-snug sm:leading-relaxed text-primary">
                         {post.content}
                     </p>
 

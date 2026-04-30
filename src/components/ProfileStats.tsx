@@ -19,7 +19,7 @@ export function ProfileStats({ stats }: ProfileStatsProps) {
 function StatItem({ value, label }: { value: number; label: string }) {
     return (
         <span className="flex items-baseline gap-1.5">
-            <span className="text-sm font-semibold text-primary">
+            <span className="text-xs sm:text-sm font-semibold text-primary">
                 {Intl.NumberFormat("tr-TR").format(value)}
             </span>
             <span className="text-sm text-muted">{label}</span>
